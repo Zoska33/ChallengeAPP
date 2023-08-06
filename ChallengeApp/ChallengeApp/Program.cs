@@ -1,72 +1,74 @@
-﻿// Dzien 5
+﻿// Dzien 6
 
-int number = 8246825;
-string numberInString = number.ToString();
-char[] letters = numberInString.ToArray();
+using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
 
-int counter0 = 0;
-int counter1 = 0;
-int counter2 = 0;
-int counter3 = 0;
-int counter4 = 0;
-int counter5 = 0;
-int counter6 = 0;
-int counter7 = 0;
-int counter8 = 0;
-int counter9 = 0;
+Employee employee1 = new Employee ("Daniel", "Kozlowski", 30);
+Employee employee2 = new Employee("Marian", "Kruk", 18);
+Employee employee3 = new Employee("Balbina", "Kaczka", 59);
 
- foreach (char letter in letters)
-    if(letter == '0')
+employee1.AddScore(4);
+employee1.AddScore(1);
+employee1.AddScore(6);
+employee1.AddScore(4);
+employee1.AddScore(1);
+
+employee2.AddScore(0);
+employee2.AddScore(0);
+employee2.AddScore(9);
+employee2.AddScore(7);
+employee2.AddScore(8);
+
+employee3.AddScore(1);
+employee3.AddScore(1);
+employee3.AddScore(5);
+employee3.AddScore(7);
+employee3.AddScore(3);
+
+
+var result = employee1.Result;
+var result2 = employee2.Result;
+var result3 = employee3.Result;
+
+List<Employee> employees = new List<Employee>()
+{
+    employee1, employee2, employee3
+};
+
+int maxResult = -1;
+Employee userWithMaxResult = null;
+
+foreach(var employee  in employees)
+{
+    if(employee.Result > maxResult)
     {
-        counter0++;
+        userWithMaxResult = employee;
+        maxResult = employee.Result;
     }
-   else if (letter == '1')
+}
+Console.WriteLine("Pracownik:" + " " + userWithMaxResult.Name + " " + userWithMaxResult.Surname + " " + userWithMaxResult.Age + "z najwyzsza liczba ocen,  ktora wynosi: " + userWithMaxResult.Result);
+class Employee 
+{
+    private List<int> score = new List<int>();
+    public Employee (string name, string surname, int age)
     {
-        counter1++;
+        this.Name = name;
+        this.Surname = surname;
+        this.Age = age;
     }
-    else if (letter == '2')
+    public string Name { get; private set; }
+    public string Surname { get; private set; }
+    public int Age { get; private set; }
+    public void AddScore (int number)
     {
-        counter2++;
+        this.score.Add(number);
     }
-    else if (letter == '3')
+    public int Result
     {
-        counter3++;
-    }
-    else if (letter == '4')
-    {
-        counter4++;
-    }
-    else if (letter == '5')
-    {
-        counter5++;
-    }
-    else if (letter == '6')
-    {
-        counter6++;
-    }
-    else if (letter == '7')
-    {
-        counter7++;
-    }
-    else if (letter == '8')
-    {
-        counter8++;
-    }
-    else if (letter == '9')
-    {
-        counter9++;
+        get
+        {
+            return this.score.Sum();
+        }
     }
 
-Console.WriteLine("Ilosc cyfr w liczbie" + number);
-
-Console.WriteLine("0=>" + counter0);
-Console.WriteLine("1=>" + counter1);
-Console.WriteLine("2=>" + counter2);
-Console.WriteLine("3=>" + counter3);
-Console.WriteLine("4=>" + counter4);
-Console.WriteLine("5=>" + counter5);
-Console.WriteLine("6=>" + counter6);
-Console.WriteLine("7=>" + counter7);
-Console.WriteLine("8=>" + counter8);
-Console.WriteLine("9=>" + counter9);
-
+}
